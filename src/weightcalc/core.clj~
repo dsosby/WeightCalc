@@ -1,0 +1,5 @@
+(ns weightcalc.core)
+
+(defn -main [& args]
+  (if (zero? (count args)) (println "Example usage: \"lein run :squat 185 :bench 130 :press 90\"")
+
