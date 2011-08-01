@@ -19,3 +19,8 @@
   (is (= (format-weight 68.99) 65) "format-weight returns proper rounding")
   (is (= (format-weight 75) 75) "format-weight returns itself if appropriate")
 )
+
+(deftest test-get-workout
+  (is (= (get-workout :squat 100) [45 45 45 60 80 100 100 100]) "Squat 100")
+  (is (empty? (get-workout :unicorndeadlift 100)) "Non-existent weight")
+)

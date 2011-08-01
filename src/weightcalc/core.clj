@@ -22,14 +22,10 @@
               :press    [(constantly 45) (constantly 45) (percent 0.55) (percent 0.7) (percent 0.85) (percent 1) (percent 1) (percent 1)]
               :row      [(constantly 45) (constantly 45) (percent 0.55) (percent 0.7) (percent 0.85) (percent 1) (percent 1) (percent 1)]})
 
-(defn get-weight
-  [weight-function target-weight]
-  (format-weight (weight-function target-weight)))
-
 (defn get-workout
   "Returns a list of the weights to be lifted for the given exercise type and target weight"
   [exercise target-weight]
-  (map #(get-weight % target-weight) (get weights exercise)))
+  (map #(format-weight (% target-weight)) (get weights exercise)))
 
 (defn -main [& args]
   (if (or (odd? (count args)) (zero? (count args)))
