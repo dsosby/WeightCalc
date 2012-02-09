@@ -29,12 +29,15 @@
 
 (defn print-workout [workout]
   (doseq [sets workout]
-    (doseq [s sets] 
-      (print (format "%6d" s)))
-    (println)))
+    (let [exercise (first sets)]
+      (print (format "%20s" exercise))
+      (doseq [s (rest sets)] 
+        (print (format "%6d" s)))
+      (println))))
 
 (defn -main [& args]
   (if (or (odd? (count args)) (zero? (count args)))
     (println "Ummm...#FAIL. Use the form \"lein run exercise1 weight exercise2 weight ...\"")
-    (let [workout (map (fn [[exercise weight]] (get-workout (keyword exercise) (Integer/parseInt weight))) (partition 2 args))]
+    (let [exercises (partition 2 args)
+          workout (map (fn [[exercise weight]] (cons exercise (get-workout (keyword exercise) (Integer/parseInt weight)))) exercises)]
       (print-workout workout))))
