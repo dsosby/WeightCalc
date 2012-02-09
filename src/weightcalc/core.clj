@@ -28,6 +28,7 @@
   (map #(format-weight (% target-weight)) (get weights exercise)))
 
 (defn print-workout [workout]
+  "Pretty print a table of the workout"
   (doseq [sets workout]
     (let [exercise (first sets)]
       (print (format "%20s" exercise))
