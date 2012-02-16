@@ -15,6 +15,7 @@ lein run squat 210 bench 155 deadlift 305
 ```
 
 Currently supports the following exercises:
+
 * squat
 * bench
 * deadlift
