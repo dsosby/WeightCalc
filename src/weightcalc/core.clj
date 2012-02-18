@@ -36,9 +36,16 @@
         (print (format "%6d" s)))
       (println))))
 
+(defn get-workout
+  "Returns a map of :exercise to a set, e.g. get-workout :squat 135 :bench 95 returns {:squat (x x y z) :bench (x x w v)}"
+  [& args]
+  (let [exercises (partition 2 args)]
+    (reduce (fn [workout [exercise target]] (assoc workout exercise (get-sets exercise target))) {} exercises)))
+
 (defn -main [& args]
   (if (or (odd? (count args)) (zero? (count args)))
     (println "Ummm...#FAIL. Use the form \"lein run exercise1 weight exercise2 weight ...\"")
-    (let [exercises (partition 2 args)
-          workout (map (fn [[exercise weight]] (cons exercise (get-sets (keyword exercise) (Integer/parseInt weight)))) exercises)]
-      (print-workout workout))))
+    (let [grouped-args (partition 2 args)
+          parsed-args (map (fn [[ex trg]] (list (keyword ex) (Integer/parseInt trg))) grouped-args)
+          workout (apply get-workout (flatten parsed-args))]
+          (print-workout workout))))
