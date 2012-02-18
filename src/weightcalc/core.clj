@@ -22,10 +22,10 @@
               :press    [(constantly 45) (constantly 45) (percent 0.55) (percent 0.7) (percent 0.85) (percent 1) (percent 1) (percent 1)]
               :row      [(constantly 45) (constantly 45) (percent 0.55) (percent 0.7) (percent 0.85) (percent 1) (percent 1) (percent 1)]})
 
-(defn get-workout
+(defn get-sets
   "Returns a list of the weights to be lifted for the given exercise type and target weight"
   [exercise target-weight]
-  (map #(format-weight (% target-weight)) (get weights exercise)))
+    (map #(format-weight (% target-weight)) (get weights exercise)))
 
 (defn print-workout [workout]
   "Pretty print a table of the workout"
@@ -40,5 +40,5 @@
   (if (or (odd? (count args)) (zero? (count args)))
     (println "Ummm...#FAIL. Use the form \"lein run exercise1 weight exercise2 weight ...\"")
     (let [exercises (partition 2 args)
-          workout (map (fn [[exercise weight]] (cons exercise (get-workout (keyword exercise) (Integer/parseInt weight)))) exercises)]
+          workout (map (fn [[exercise weight]] (cons exercise (get-sets (keyword exercise) (Integer/parseInt weight)))) exercises)]
       (print-workout workout))))
