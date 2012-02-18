@@ -29,12 +29,11 @@
 
 (defn print-workout [workout]
   "Pretty print a table of the workout"
-  (doseq [sets workout]
-    (let [exercise (first sets)]
-      (print (format "%20s" exercise))
-      (doseq [s (rest sets)] 
-        (print (format "%6d" s)))
-      (println))))
+  (doseq [exercise (keys workout)]
+    (print (format "%20s" exercise))
+    (doseq [exercise-set (exercise workout)]
+      (print (format "%6d" exercise-set)))
+    (println)))
 
 (defn get-workout
   "Returns a map of :exercise to a set, e.g. get-workout :squat 135 :bench 95 returns {:squat (x x y z) :bench (x x w v)}"
