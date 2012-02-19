@@ -32,7 +32,7 @@
 (defn print-workout [workout]
   "Pretty print a table of the workout"
   (doseq [exercise workout]
-    (print (format "%20s" (:exercise exercise)))
+    (print (format "%20s" (name (:exercise exercise))))
     (doseq [exercise-set (:set-weights exercise)]
       (print (format "%6d" exercise-set)))
     (println)))
