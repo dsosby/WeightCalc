@@ -43,7 +43,9 @@
   (let [exercises (partition 2 args)]
     (map (fn [[exercise target]] (WorkoutExercise. exercise target (get-sets exercise target))) exercises)))
 
-(defn -main [& args]
+(defn -main 
+  "A quick way to get a workout plan using lein run"
+  [& args]
   (if (or (odd? (count args)) (zero? (count args)))
     (println "Ummm...#FAIL. Use the form \"lein run exercise1 weight exercise2 weight ...\"")
     (let [grouped-args (partition 2 args)
