@@ -15,6 +15,7 @@
   (fn [target] (* percentage target)))
 
 (defn format-weight
+  "Ensure weight is minimum 45 (bar weight) and is floored to lowest 5 lb"
   [real-weight]
   (max 45 (Math/round (floor real-weight 5))))
 
@@ -29,8 +30,9 @@
   [exercise target-weight]
     (map #(format-weight (% target-weight)) (get weights exercise)))
 
-(defn print-workout [workout]
+(defn print-workout
   "Pretty print a table of the workout"
+  [workout]
   (doseq [exercise workout]
     (print (format "%20s" (name (:exercise exercise))))
     (doseq [exercise-set (:set-weights exercise)]
