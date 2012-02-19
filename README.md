@@ -1,6 +1,6 @@
 # weightcalc
 
-A simple weight calculator written in Clojure as a learning project.
+A simple weightlifting calculator written in Clojure as a learning project.
 
 ## Usage
 
