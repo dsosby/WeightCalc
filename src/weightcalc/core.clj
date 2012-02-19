@@ -1,5 +1,7 @@
 (ns weightcalc.core)
 
+(defrecord WorkoutExercise [exercise target-weight set-weights])
+
 (defn floor
   "Given number n, returns the largest integer less than n. Optionally takes m to find largest integer of multiple m less than n"
   ([n] (Math/floor n))
@@ -29,17 +31,17 @@
 
 (defn print-workout [workout]
   "Pretty print a table of the workout"
-  (doseq [exercise (keys workout)]
-    (print (format "%20s" exercise))
-    (doseq [exercise-set (exercise workout)]
+  (doseq [exercise workout]
+    (print (format "%20s" (:exercise exercise)))
+    (doseq [exercise-set (:set-weights exercise)]
       (print (format "%6d" exercise-set)))
     (println)))
 
 (defn get-workout
-  "Returns a map of :exercise to a set, e.g. get-workout :squat 135 :bench 95 returns {:squat (x x y z) :bench (x x w v)}"
+  "Returns a list of WorkoutExercise records"
   [& args]
   (let [exercises (partition 2 args)]
-    (reduce (fn [workout [exercise target]] (assoc workout exercise (get-sets exercise target))) {} exercises)))
+    (map (fn [[exercise target]] (WorkoutExercise. exercise target (get-sets exercise target))) exercises)))
 
 (defn -main [& args]
   (if (or (odd? (count args)) (zero? (count args)))
